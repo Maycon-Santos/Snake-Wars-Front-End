@@ -2,8 +2,6 @@ import { IWebComponentOptions, IConstructor } from './@types/web-components.type
 import { webComponentUtils } from './web-component-utils'
 import { defineProps } from './props'
 
-export { IOnChange } from './@types/web-components.types'
-
 // @Decorator
 export function WebComponent (options: IWebComponentOptions) {
   const { selector } = options

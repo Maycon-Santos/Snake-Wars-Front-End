@@ -7,8 +7,8 @@ const listenAllStates = Symbol('Listen All States')
 function defineInitialState (target: any) {
   if (!target.state) {
     target.state = new Proxy({ ...(target.initialState || {}) }, {
-      get (state: any, property: any) {
-        return state[property]
+      get (state: any, propertyKey: any) {
+        return state[propertyKey]
       },
       set (state: any, stateKey: any, value: any) {
         const oldValue = state[stateKey]

@@ -5,9 +5,11 @@ const listenedProps = Symbol('Listened Props')
 
 function onChangePropHandler (target: any) {
   return (name: string, oldValue: any, value: any) => {
-    target[listenedProps][name].forEach((fn: (...args: any[]) => any) => {
-      fn({ value, oldValue })
-    })
+    if (target[listenedProps][name]) {
+      target[listenedProps][name].forEach((fn: (...args: any[]) => any) => {
+        fn({ value, oldValue })
+      })
+    }
   }
 }
 
@@ -15,7 +17,7 @@ export function defineProps (Constructor: IConstructor, options: IWebComponentOp
   Constructor.observedAttributes = options.props || []
 }
 
-export function onChangeProp (attr: string) {
+export function onChangeProp (attr?: string) {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value.bind(target)
 

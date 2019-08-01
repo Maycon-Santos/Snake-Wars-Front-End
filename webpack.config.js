@@ -29,6 +29,17 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.html$/i,
+        use: 'raw-loader',
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "css-loader",
+          "sass-loader",
+        ]
+      }
     ],
   },
   devServer: {
