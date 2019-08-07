@@ -20,6 +20,6 @@ function register (decoratorName) {
 }
 
 export const renderCallback = register('renderCallback')
-export const connectedCallback = register('renderCallback')
-export const disconnectedCallback = register('renderCallback')
-export const adoptedCallback = register('renderCallback')
+export const connectedCallback = register('connectedCallback')
+export const disconnectedCallback = register('disconnectedCallback')
+export const adoptedCallback = register('adoptedCallback')

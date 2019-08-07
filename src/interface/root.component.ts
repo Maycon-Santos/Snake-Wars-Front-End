@@ -8,9 +8,6 @@ import Render from './root.render.html'
   render: Render
 })
 export class AppRootComponent extends HTMLElement {
-  renderCallback () {
-  }
-
   @connectedCallback
   addEvents () {
     this.windowResizeEvent()
@@ -19,6 +16,7 @@ export class AppRootComponent extends HTMLElement {
 
   @disconnectedCallback
   removeEvents () {
+    console.log('Disconnect')
     window.removeEventListener('resize', this.windowResizeEvent)
   }
 
