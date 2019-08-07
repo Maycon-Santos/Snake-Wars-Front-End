@@ -1,0 +1,24 @@
+@import '../../../assets/styles/theme/spacing';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+atom-logo {
+  + * {
+    margin-top: nth($spacing, 7);
+  }
+}
+
+organism-card{
+  padding: nth($spacing, 12) nth($spacing, 10);
+}
+
+molecule-input[type="text"]{
+  padding: nth($spacing, 6);
+  height: 40rem;
+}

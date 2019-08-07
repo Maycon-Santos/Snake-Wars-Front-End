@@ -1,0 +1,87 @@
+@import '../../../assets/styles/theme/colors';
+
+@mixin other( $width, $color, $bgcolor ) {
+  box-shadow:
+    $width 0 $bgcolor,
+    -$width 0 $bgcolor,
+    0 (-$width) $bgcolor,
+    0 $width $bgcolor,
+    2*$width 0 $bgcolor,
+    -2*$width 0 $bgcolor,
+    0 (-2*$width) $bgcolor,
+    0 2*$width $bgcolor, 
+    0 0 0 $width $bgcolor,
+    3*$width 0 $color,
+    -3*$width 0 $color, 
+    0 3*$width $color,
+    0 (-3*$width) $color,
+    0 (-$width) 0 $width $color,
+    0 $width 0 $width $color,
+    $width 0 0 $width $color,
+    -$width 0 0 $width $color;
+}
+
+:host{
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 100rem;
+  min-height: 24rem;
+  box-sizing: border-box;
+  font-size: 24rem;
+  @include other(6rem, map-get($color, primaryDark), map-get($color, whitish));
+  background: map-get($color, whitish);
+}
+
+input{
+  align-items: center;
+  width: 100%;
+  // height: 100%;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 1em;
+  background: transparent;
+  &:focus,
+  &[has-value="true"]{
+    ~ .placeholder{
+      opacity: 0;
+      transform: translateY(-30%);
+    }
+  }
+  &:focus{
+    ~ * {
+      pointer-events: none;
+    }
+  }
+}
+
+.placeholder{
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: inherit;
+  padding-right: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: all .2s cubic-bezier(0.27, 0.99, 1, 1);
+  color: map-get($color, secondary);
+}
+
+label{
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 12rem;
+  margin: -12rem;
+  cursor: text;
+}

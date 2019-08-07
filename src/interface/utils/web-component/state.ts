@@ -1,5 +1,5 @@
 import { IOnChange } from './@types/web-components.types'
-import { keyHosts, callAfterRender } from './web-component-utils'
+import { callAfterRender } from './web-component-utils'
 
 const listenedState = Symbol('Listened State')
 const listenAllStates = Symbol('Listen All States')
@@ -30,7 +30,7 @@ function defineInitialState (target: any) {
 
 export function onChangeState (state: any = listenAllStates) {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value.bind(target)
+    const originalMethod = descriptor.value
 
     defineInitialState(target)
 
@@ -43,7 +43,7 @@ export function onChangeState (state: any = listenAllStates) {
     }
 
     descriptor.value = (args: IOnChange = {}) => {
-      args.host = window[keyHosts][target]
+      const host = target.__host
 
       if (!args.state) {
         args.state = { ...target.state }
@@ -53,7 +53,7 @@ export function onChangeState (state: any = listenAllStates) {
         args.value = target.state[state]
       }
 
-      originalMethod(args)
+      originalMethod.bind(host)(args)
     }
 
     target[listenedState][state].push(descriptor.value)

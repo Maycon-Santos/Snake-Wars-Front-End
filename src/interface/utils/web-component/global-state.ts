@@ -1,4 +1,4 @@
-import { keyHosts, callAfterRender } from './web-component-utils'
+import { callAfterRender } from './web-component-utils'
 import { IOnChange } from './@types/web-components.types'
 
 const listenedAllStates = Symbol('Listened All Global State')
@@ -24,16 +24,15 @@ const globalState = new Proxy({}, {
 
 export function onChangeGlobalState (state: any = listenedAllStates) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    const originalMethod = descriptor.value.bind(target)
+    const originalMethod = descriptor.value
 
     if (!listenedState[state]) {
       listenedState[state] = []
     }
 
     descriptor.value = (args: IOnChange = {}) => {
-      console.log(Object.keys(globalState).includes(state))
       if (Object.keys(globalState).includes(state)) {
-        const host = window[keyHosts][target]
+        const host = target.__host
 
         if (!args.state) {
           args.state = { ...globalState }
@@ -43,7 +42,7 @@ export function onChangeGlobalState (state: any = listenedAllStates) {
           args.value = globalState[state]
         }
 
-        originalMethod({ host, ...args })
+        originalMethod.bind(host)(args)
       }
     }
 

@@ -1,5 +1,5 @@
-import { WebComponent, onChangeProp, onChangeState, setState, getState } from '../utils'
-import { onChangeGlobalState, getGlobalState, setGlobalState } from '../utils/web-component/app-state'
+import { WebComponent, onChangeProp, onChangeState, setState, getState, renderCallback } from '../utils'
+import { onChangeGlobalState, getGlobalState, setGlobalState } from '../utils/web-component/global-state'
 import Style from './example.style.scss'
 import Render from './example.render.html'
 
@@ -33,7 +33,8 @@ export class ExampleComponent extends HTMLElement {
     }
   }
 
-  renderCallback () {
+  @renderCallback
+  setButtonClickEvent () {
     const $button = this.shadowRoot.querySelector('button')
     $button.addEventListener('click', () => this.sum())
   }
@@ -47,25 +48,25 @@ export class ExampleComponent extends HTMLElement {
   }
 
   @onChangeState()
-  renderValue ({ host, state }: IOnChange) {
-    const $button = host.shadowRoot.querySelector('button')
+  renderValue ({ state }) {
+    const $button = this.shadowRoot.querySelector('button')
     if ($button) {
       $button.innerText = String(state.value)
     }
   }
 
   @onChangeProp('show')
-  toggleVisible ({ host, value }: IOnChange) {
+  toggleVisible ({ value }) {
     if (value === 'false') {
-      host.style.display = 'none'
+      this.style.display = 'none'
     } else {
-      host.style.display = 'block'
+      this.style.display = 'block'
     }
   }
 
   @onChangeGlobalState('test')
-  testGlobalState ({ host, value, state }) {
-    console.log(host, value, state)
+  testGlobalState ({ value, state }) {
+    console.log(this, value, state)
   }
 
   @getGlobalState

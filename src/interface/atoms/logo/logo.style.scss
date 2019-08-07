@@ -1,0 +1,12 @@
+@import '../../../assets/styles/theme/colors';
+
+:host{
+  display: block;
+  color: map-get($color, primaryDark);
+  font-family: '8BIT WONDER', sans-serif;
+  font-size: 82rem;
+}
+
+span{
+  font-size: 1.116em;
+}

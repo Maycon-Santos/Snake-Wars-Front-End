@@ -1,0 +1,30 @@
+// Fonts
+$path: '../../fonts/';
+
+// Tem acentos
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('#{$path}PressStart2P.woff2') format('woff2'),
+      url('#{$path}PressStart2P.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+// Sem acentos
+@font-face {
+  font-family: '8BIT WONDER';
+  src: url('#{$path}8BITWONDERNominal.woff2') format('woff2'),
+      url('#{$path}8BITWONDERNominal.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Alguns acentos
+@font-face {
+  font-family: 'Visitor TT2 BRK';
+  src: url('#{$path}VisitorTT2BRK.woff2') format('woff2'),
+      url('#{$path}VisitorTT2BRK.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+

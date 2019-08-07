@@ -1,5 +1,8 @@
+@import '../assets/styles/theme/colors';
+
 :host{
   position: relative;
   display: block;
-  background: #bbd8e8;
+  user-select: none;
+  background: map-get($color, primary);
 }

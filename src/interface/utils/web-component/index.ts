@@ -1,4 +1,5 @@
 export * from './web-component'
-export * from './app-state'
+export * from './global-state'
 export * from './state'
 export * from './props'
+export * from './lifecycle'

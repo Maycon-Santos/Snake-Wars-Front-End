@@ -1,0 +1,23 @@
+@import '../../../assets/styles/theme/colors';
+
+:host{
+  display: block;
+  min-height: 700rem;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 10rem;
+  background: map-get($color, primaryLight);
+}
+
+:host([size="small"]){
+  width: 576rem;
+}
+
+:host([size="normal"]){
+  width: 768rem;
+}
+
+:host([size="big"]){
+  width: 1024rem;
+}

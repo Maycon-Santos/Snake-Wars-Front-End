@@ -1,5 +1,5 @@
 import { IConstructor, IWebComponentOptions, IOnChange } from './@types/web-components.types'
-import { keyHosts, callAfterRender } from './web-component-utils'
+import { callAfterRender } from './web-component-utils'
 
 const listenedProps = Symbol('Listened Props')
 
@@ -19,7 +19,7 @@ export function defineProps (Constructor: IConstructor, options: IWebComponentOp
 
 export function onChangeProp (attr?: string) {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value.bind(target)
+    const originalMethod = descriptor.value
 
     if (!target[listenedProps]) {
       target[listenedProps] = []
@@ -34,7 +34,7 @@ export function onChangeProp (attr?: string) {
     }
 
     descriptor.value = (args: IOnChange = {}) => {
-      args.host = window[keyHosts][target]
+      const host = target.__host
 
       if (!args.props) {
         const _listenedProps = Object.fromEntries(
@@ -42,7 +42,7 @@ export function onChangeProp (attr?: string) {
         )
 
         const props = Object.fromEntries(
-          Array.from(args.host.attributes).map(prop => {
+          Array.from(host.attributes).map((prop: any) => {
             return [prop.name, prop.nodeValue]
           })
         )
@@ -50,7 +50,7 @@ export function onChangeProp (attr?: string) {
         args.props = { ..._listenedProps, ...props }
       }
 
-      originalMethod(args)
+      originalMethod.bind(host)(args)
     }
 
     target[listenedProps][attr].push(descriptor.value)
