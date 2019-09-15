@@ -3,6 +3,7 @@ import { lifeCycleSymbols } from './lifecycle'
 
 const keyCallAfterRender = Symbol('Call after Render')
 export const keyHosts = Symbol('Host Elements')
+
 window[keyHosts] = {}
 
 export function webComponentUtils (Constructor: IConstructor, options: IWebComponentOptions): IConstructor {

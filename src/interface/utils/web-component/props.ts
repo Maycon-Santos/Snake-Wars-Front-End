@@ -2,12 +2,18 @@ import { IConstructor, IWebComponentOptions, IOnChange } from './@types/web-comp
 import { callAfterRender } from './web-component-utils'
 
 const listenedProps = Symbol('Listened Props')
+const listenedAllProps = Symbol('Listened All Props')
 
 function onChangePropHandler (target: any) {
-  return (name: string, oldValue: any, value: any) => {
-    if (target[listenedProps][name]) {
-      target[listenedProps][name].forEach((fn: (...args: any[]) => any) => {
-        fn({ value, oldValue })
+  return (propName: string, oldValue: any, value: any) => {
+    if (target[listenedProps][propName]) {
+      const fns = [
+        ...(target[listenedProps][listenedAllProps] || []),
+        ...(target[listenedProps][propName] || [])
+      ]
+
+      fns.forEach((fn: (...args: any[]) => any) => {
+        fn({ value, oldValue, propName })
       })
     }
   }
@@ -17,7 +23,7 @@ export function defineProps (Constructor: IConstructor, options: IWebComponentOp
   Constructor.observedAttributes = options.props || []
 }
 
-export function onChangeProp (attr?: string) {
+export function onChangeProp (attr: any = listenedAllProps) {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value
 

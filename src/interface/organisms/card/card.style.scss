@@ -2,22 +2,25 @@
 
 :host{
   display: block;
-  min-height: 700rem;
   box-sizing: border-box;
   margin-right: auto;
   margin-left: auto;
-  border-radius: 10rem;
+  box-shadow:
+    12rem 0 0 0 map-get($color, primaryLight),
+    -12rem 0 0 0 map-get($color, primaryLight),
+    0 12rem 0 0 map-get($color, primaryLight),
+    0 -12rem 0 0 map-get($color, primaryLight);
   background: map-get($color, primaryLight);
 }
 
 :host([size="small"]){
-  width: 576rem;
-}
-
-:host([size="normal"]){
   width: 768rem;
 }
 
-:host([size="big"]){
+:host([size="normal"]){
   width: 1024rem;
+}
+
+:host([size="big"]){
+  width: 1600rem;
 }

@@ -1,2 +1,2 @@
-import './card/card.component'
-import './background/background.component'
+export * from './card/card.component'
+export * from './background/background.component'

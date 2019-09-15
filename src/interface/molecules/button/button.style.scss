@@ -1,0 +1,31 @@
+@import '../../../assets/styles/theme/colors';
+@import '../../../assets/styles/theme/spacing';
+
+:host{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:
+    nth($spacing, 7) // Top
+    nth($spacing, 10) // Right
+    nth($spacing, 6) // Bottom
+    nth($spacing, 10); // Left
+  box-shadow:
+    8rem 0 0 0 map-get($color, primaryDark),
+    -8rem 0 0 0 map-get($color, primaryDark),
+    0 8rem 0 0 map-get($color, primaryDark),
+    0 -8rem 0 0 map-get($color, primaryDark);
+  font-size: 24rem;
+  color: map-get($color, whitish);
+  background: map-get($color, primaryDark);
+}
+
+:host(:hover){
+  cursor: pointer;
+  box-shadow:
+    8rem 0 0 0 map-get($color, secondaryDark),
+    -8rem 0 0 0 map-get($color, secondaryDark),
+    0 8rem 0 0 map-get($color, secondaryDark),
+    0 -8rem 0 0 map-get($color, secondaryDark);
+  background: map-get($color, secondaryDark);
+}

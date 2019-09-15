@@ -4,7 +4,7 @@ import Render from './input.render.html'
 
 interface Props {
   type: string,
-  onChange?: Function
+  placeholder?: string,
 }
 
 const generatedIDs = new Set()
@@ -15,12 +15,14 @@ const OnChange = Symbol('onChange')
   selector: 'molecule-input',
   style: Style,
   render: Render,
-  props: ['type']
+  props: ['type', 'placeholder']
 })
 export class InputComponent extends HTMLElement {
   $input: HTMLInputElement
 
   $label: HTMLLabelElement
+
+  $placeholder: HTMLSpanElement
 
   get defaultProps (): Props {
     return {
@@ -33,12 +35,10 @@ export class InputComponent extends HTMLElement {
     this.$input.setAttribute('type', type)
   }
 
-  // renderCallback () {
-  //   this.getRefs()
-
-  //   this.uniqueLabelID()
-  //   this[OnChange]()
-  // }
+  @onChangeProp('placeholder')
+  setPlaceholder ({ value: placeholder }) {
+    this.$placeholder.innerText = placeholder || ''
+  }
 
   @renderCallback
   getRefs () {
@@ -46,6 +46,7 @@ export class InputComponent extends HTMLElement {
 
     this.$input = root.querySelector('input')
     this.$label = root.querySelector('label')
+    this.$placeholder = root.querySelector('.placeholder')
   }
 
   @renderCallback

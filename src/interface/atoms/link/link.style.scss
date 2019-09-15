@@ -1,0 +1,21 @@
+@import '../../../assets/styles/theme/colors';
+@import '../../../assets/styles/theme/spacing';
+
+:host{
+  font-size: 16rem;
+}
+
+a{
+  display: block;
+  padding: nth($spacing, 5) nth($spacing, 6);
+  text-decoration: inherit;
+  color: inherit;
+  border-radius: 100rem;
+  &:hover,
+  &:focus{
+    background: rgba(map-get($color, primaryDark), .1);
+  }
+  &:active{
+    background: rgba(map-get($color, primaryDark), .3);
+  }
+}

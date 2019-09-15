@@ -3,7 +3,7 @@ export interface IWebComponentOptions {
   render?: string
   style?: string
   useShadowRoot?: boolean
-  [key: string]: any
+  props?: string[]
 }
 
 type TConstructor = new (...args:any[]) => any

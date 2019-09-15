@@ -2,7 +2,7 @@ import { IOnChange } from './@types/web-components.types'
 import { callAfterRender } from './web-component-utils'
 
 const listenedState = Symbol('Listened State')
-const listenAllStates = Symbol('Listen All States')
+const listenedAllStates = Symbol('Listened All States')
 
 function defineInitialState (target: any) {
   if (!target.state) {
@@ -14,9 +14,10 @@ function defineInitialState (target: any) {
         const oldValue = state[stateKey]
         state[stateKey] = value
 
-        const listenedAllStates = target[listenedState][listenAllStates]
-
-        const fns = [...(listenedAllStates || []), ...(target[listenedState][stateKey] || [])]
+        const fns = [
+          ...(target[listenedState][listenedAllStates] || []),
+          ...(target[listenedState][stateKey] || [])
+        ]
 
         fns.forEach((fn: Function) => {
           fn({ value, stateKey, oldValue, state: { ...state } })
@@ -28,7 +29,7 @@ function defineInitialState (target: any) {
   }
 }
 
-export function onChangeState (state: any = listenAllStates) {
+export function onChangeState (state: any = listenedAllStates) {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value
 
@@ -49,7 +50,7 @@ export function onChangeState (state: any = listenAllStates) {
         args.state = { ...target.state }
       }
 
-      if (!args.value && state !== listenAllStates) {
+      if (!args.value && state !== listenedAllStates) {
         args.value = target.state[state]
       }
 

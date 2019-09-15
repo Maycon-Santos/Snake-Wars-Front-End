@@ -10,15 +10,32 @@
 
 atom-logo {
   + * {
-    margin-top: nth($spacing, 7);
+    margin-top: nth($spacing, 13);
   }
 }
 
 organism-card{
-  padding: nth($spacing, 12) nth($spacing, 10);
+  padding: nth($spacing, 13);
 }
 
 molecule-input{
   padding: nth($spacing, 6);
-  height: 40rem;
+  height: 64rem;
+  + molecule-input{
+    margin-top: nth($spacing, 11);
+  }
+}
+
+.form-footer{
+  display: flex;
+  align-items: center;
+  margin-top: nth($spacing, 9);
+  molecule-button{
+    margin-left: auto;
+    text-transform: uppercase;
+  }
+  atom-link{
+    font-size: 18rem;
+    line-height: 1.3em;
+  }
 }

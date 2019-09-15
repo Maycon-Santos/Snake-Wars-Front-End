@@ -2,9 +2,11 @@
 
 :host{
   display: block;
+  margin-right: -0.2em;
   color: map-get($color, primaryDark);
   font-family: '8BIT WONDER', sans-serif;
-  font-size: 82rem;
+  font-size: 120rem;
+  letter-spacing: normal;
 }
 
 span{

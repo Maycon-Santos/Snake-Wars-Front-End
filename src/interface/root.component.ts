@@ -1,4 +1,5 @@
-import { WebComponent, getGlobalState, onChangeGlobalState, setGlobalState, disconnectedCallback, connectedCallback } from './utils'
+import { WebComponent, onChangeGlobalState, setGlobalState, disconnectedCallback, connectedCallback, Selector } from './utils'
+import * as modules from './modules/modules.load'
 import Style from './root.style.scss'
 import Render from './root.render.html'
 
@@ -7,19 +8,38 @@ import Render from './root.render.html'
   style: Style,
   render: Render
 })
-export class AppRootComponent extends HTMLElement {
+export class Root extends HTMLElement {
+  private _currentModule = 'module-login'
+
+  setCurrentModule (module) {
+    this._currentModule = module
+    this.router()
+  }
+
+  @connectedCallback
+  router () {
+    console.log(this._currentModule)
+    for (const moduleName in modules) {
+      const module = modules[moduleName]
+      if (module.prototype[Selector] === this._currentModule) {
+        const $screens = this.shadowRoot.querySelector('.screens')
+        $screens.innerHTML = ''
+        $screens.appendChild(document.createElement(this._currentModule))
+      }
+    }
+  }
+
   @connectedCallback
   addEvents () {
-    this.windowResizeEvent()
     window.addEventListener('resize', this.windowResizeEvent)
   }
 
   @disconnectedCallback
   removeEvents () {
-    console.log('Disconnect')
     window.removeEventListener('resize', this.windowResizeEvent)
   }
 
+  @connectedCallback
   @setGlobalState
   windowResizeEvent () {
     return {
@@ -51,4 +71,10 @@ export class AppRootComponent extends HTMLElement {
 
     document.documentElement.style.fontSize = fontSize
   }
+}
+
+export function toModule (module) {
+  const $root: Root = document.querySelector('app-root')
+  console.dir($root)
+  $root.setCurrentModule(module)
 }
